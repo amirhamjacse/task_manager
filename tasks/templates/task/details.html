@@ -1,0 +1,38 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container mt-4">
+    <div class="row">
+        <div class="col-md-8">
+            <h2>Task Details</h2>
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title text-center">{{ task.title }}</h5>
+                    <p class="card-text">{{ task.description }}</p>
+                    <p class="card-text"><strong>Due Date:</strong> {{ task.due_date }}</p>
+                    <p class="card-text"><strong>Priority:</strong> {{ task.get_priority_display }}</p>
+                    <p class="card-text"><strong>Status:</strong> {% if task.is_complete %}Complete{% else %}Incomplete{% endif %}</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <h2>Task Photos</h2>
+            {% if task.photos.all %}
+            <div class="card">
+                <ul class="list-group list-group-flush">
+                    {% for photo in task.photos.all %}
+                    <li class="list-group-item">
+                        <img src="{{ photo.image.url }}" alt="{{ photo.description }}" class="img-thumbnail">
+                        <p class="mt-2">{{ photo.description }}</p>
+                    </li>
+                    {% endfor %}
+                </ul>
+            </div>
+            {% else %}
+            <p>No photos available for this task.</p>
+            {% endif %}
+        </div>
+    </div>
+    <a href="{% url 'task_update' task.pk %}" class="btn btn-primary mt-3">Edit Task</a>
+</div>
+{% endblock %}

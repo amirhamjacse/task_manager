@@ -1,12 +1,56 @@
 {% extends "base.html" %}
 
 {% block content %}
-  <div class="container">
-    <h2>Welcome to the Home Page</h2>
-    {% if user.is_authenticated %}
-      <p>Hello, {{ user.email }}! 
-    {% else %}
-      <p>You are not logged in. <a href="{% url 'login' %}" class="btn btn-primary">Login</a> or <a href="{% url 'register' %}" class="btn btn-success">Register</a></p>
-    {% endif %}
-  </div>
+<div class="container">
+    {% comment %} <h2>Welcome to the Home Page</h2> {% endcomment %}
+    
+</div>
+
+<div class="container mt-4">
+    <div class="d-flex justify-content-between align-items-center">
+        <h2>Task List</h2>
+        <a href="{% url 'task_create' %}" class="btn btn-primary">Create Task</a>
+    </div>
+    
+    <form method="get" class="form-inline mb-3">
+        {{ filter_form.as_p }}
+        <button type="submit" class="btn btn-primary">Filter</button>
+    </form>
+
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>Title</th>
+                <th>Created At</th>
+                <th>Due Date</th>
+                <th>Priority</th>
+                <th>Completed</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for task in object_list %}
+            <tr>
+                <td>{{ task.title|default_if_none:"-" }}</td>
+                <td>{{ task.created_at|default_if_none:"-" }}</td>
+                <td>{{ task.due_date|default_if_none:"-" }}</td>
+                <td>{{ task.get_priority_display|default_if_none:"-" }}</td>
+                <td>{% if task.is_complete %}Yes{% else %}No{% endif %}</td>
+                <td>
+                    <a href="{% url 'task_details' task.pk %}" class="btn btn-info btn-sm">Details</a>
+                    <a href="{% url 'task_delete' task.pk %}" class="btn btn-danger btn-sm">Delete</a>
+                   
+                </td>
+            </tr>
+            <!-- Delete Task Modal -->
+
+            {% empty %}
+            <tr>
+                <td colspan="6">No tasks found.</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+</div>
 {% endblock %}

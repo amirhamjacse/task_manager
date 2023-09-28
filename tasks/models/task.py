@@ -5,13 +5,15 @@ from task_manager.abstract_model import AbsTimeMixin
 User = get_user_model()
 
 
-PRIORITY_CHOICES = [
+
+
+class Task(AbsTimeMixin):
+    PRIORITY_CHOICES = [
         ('Low', 'Low'),
         ('Medium', 'Medium'),
         ('High', 'High'),
     ]
 
-class Task(AbsTimeMixin):
     title = models.CharField(
         max_length=255, 
         null=True, blank=True
@@ -21,7 +23,7 @@ class Task(AbsTimeMixin):
         blank=True
     )
     due_date = models.DateField(
-        blank=True
+        blank=True, null=True
     )
     priority = models.CharField(
         max_length=10, 

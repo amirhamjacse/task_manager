@@ -1,10 +1,11 @@
 from .user import (
     CustomUser, CustomUserManager
 )
-from .task import Task
+from .task import Task, Photos
 
 __all__ = [
     CustomUser,
     CustomUserManager,
-    Task
+    Task,
+    Photos
 ]

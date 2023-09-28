@@ -1,9 +1,11 @@
 from .authentications_form import (
     LoginForm,
-    RegistrationForm
+    RegistrationForm,
 )
-
+from .task import TaskForm, TaskFilterForm
 __all__ = [
     LoginForm,
-    RegistrationForm
+    RegistrationForm,
+    TaskForm,
+    TaskFilterForm
 ]
