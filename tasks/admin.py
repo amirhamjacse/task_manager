@@ -13,10 +13,31 @@ class UserModelAdmin(admin.ModelAdmin):
         'is_active',
         'is_staff',
     ]
+
+
+@admin.register(models.Task)
+class TaskModelAdmin(admin.ModelAdmin):
+    list_display = [
+        'title',
+        'description',
+        'due_date',
+        'priority',
+        'is_complete',
+        'owner',
+    ]
+    ordering = ("priority",)
     # list_editable = [
-    #     "order"
+    #     "title"
     # ]
-    # search_fields = ['name', 'type', 'wing_or_zone', "circle"]
-    # readonly_fields = ('created_at', 'last_updated')
-    # list_filter = ['is_active']
-    # ordering = ("order", "-pk")
+
+
+@admin.register(models.Photos)
+class PhotosModleAdmin(admin.ModelAdmin):
+    list_display = [
+        'id',
+        'task',
+        'image',
+    ]
+    list_editable = [
+        "image"
+    ]

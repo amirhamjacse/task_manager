@@ -5,25 +5,48 @@ from django.contrib.auth.mixins import (
 from django.urls import reverse_lazy
 from django.views.generic import (
     CreateView, UpdateView, DeleteView,
-    DetailView
+    DetailView, View
 )
-from django.shortcuts import get_object_or_404
+from django.shortcuts import get_object_or_404, render, redirect
 from django.views.generic.list import ListView
-from tasks.models import Task
-from tasks.forms import TaskForm, TaskFilterForm
+from tasks.models import Task, Photos
+from tasks.forms import TaskForm, TaskFilterForm, PhotoForm
 
 
-# views.py
-class TaskCreateView(LoginRequiredMixin, CreateView):
-    model = Task
+class TaskCreateView(LoginRequiredMixin, View):
     template_name = 'task/create.html'
-    form_class = TaskForm
-    success_url = reverse_lazy('home')
 
-    def form_valid(self, form):
-        # Set the owner (logged-in user) before saving the task
-        form.instance.owner = self.request.user
-        return super().form_valid(form)
+    def get(self, request, *args, **kwargs):
+        task_form = TaskForm()
+        photo_form = PhotoForm()
+        context = {
+            'form': task_form,
+            'photo_form': photo_form,
+        }
+        return render(request, self.template_name, context)
+
+    def post(self, request, *args, **kwargs):
+        task_form = TaskForm(request.POST)
+        photo_form = PhotoForm(request.POST, request.FILES)
+
+        if task_form.is_valid() and photo_form.is_valid():
+            # Save the Task
+            task = task_form.save(commit=False)
+            task.owner = request.user
+            task.save()
+
+            # Create the associated Photo
+            photo = photo_form.save(commit=False)
+            photo.task = task
+            photo.save()
+
+            return redirect('home')
+
+        context = {
+            'form': task_form,
+            'photo_form': photo_form,
+        }
+        return render(request, self.template_name, context)
 
 
 
@@ -34,26 +57,14 @@ class TaskUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
     success_url = reverse_lazy('home')
 
     def test_func(self):
-        # Check if the current user is the owner of the task
         task = self.get_object()
         return self.request.user == task.owner
 
     def form_valid(self, form):
-        # Set the owner (logged-in user) before saving the updated task
         form.instance.owner = self.request.user
         return super().form_valid(form)
 
 
-
-# class TaskListView(LoginRequiredMixin, ListView):
-#     model = Task
-#     template_name = 'home.html'
-    
-#     def get_queryset(self):
-#         # Filter tasks to show only those owned by the logged-in user
-#         return Task.objects.filter(owner=self.request.user)
-
-# Similar changes for TaskUpdateView and TaskDeleteView
 
 class TaskDeleteView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
     model = Task
@@ -61,22 +72,31 @@ class TaskDeleteView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
     success_url = reverse_lazy('home')
 
     def test_func(self):
-        # Check if the current user is the owner of the task
         task = self.get_object()
         return self.request.user == task.owner
 
 
 class TaskDetailView(LoginRequiredMixin, DetailView):
     model = Task
-    template_name = 'task/details.html'  # Replace with the actual template name
-    context_object_name = 'task'  # The variable name to use in the template
+    template_name = 'task/details.html'
+    context_object_name = 'task'
 
     def get_queryset(self):
-        # Filter tasks based on the currently logged-in user
         return Task.objects.filter(owner=self.request.user)
+    
+    def get(self, request, *args, **kwargs):
+        self.object = self.get_object()
+        context = {}
+        context['photos'] = Photos.objects.filter(
+            task=self.object
+        )
+        context.update(self.get_context_data(
+            object=self.object)
+        )
+        return self.render_to_response(context)
+
 
     def get_object(self, queryset=None):
-        # Use get_object_or_404 to get the specific task or return a 404 if not found
         queryset = queryset or self.get_queryset()
         pk = self.kwargs.get('pk')
         return get_object_or_404(queryset, pk=pk)
@@ -86,7 +106,6 @@ class TaskListView(LoginRequiredMixin, ListView):
     model = Task
     template_name = 'home.html'
     context_object_name = 'home'
-    paginate_by = 10
 
     def get_queryset(self):
         # Get all tasks

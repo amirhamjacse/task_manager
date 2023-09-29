@@ -17,17 +17,21 @@
         </div>
         <div class="col-md-4">
             <h2>Task Photos</h2>
-            {% if task.photos.all %}
-            <div class="card">
-                <ul class="list-group list-group-flush">
-                    {% for photo in task.photos.all %}
-                    <li class="list-group-item">
-                        <img src="{{ photo.image.url }}" alt="{{ photo.description }}" class="img-thumbnail">
-                        <p class="mt-2">{{ photo.description }}</p>
-                    </li>
-                    {% endfor %}
-                </ul>
-            </div>
+            {% if photos %}
+    <div class="card">
+        <ul class="list-group list-group-flush">
+            {% for photo in photos %}
+            <li class="list-group-item">
+                <img src="{{ photo.image.url }}" alt="{{ photo.description }}" class="img-thumbnail">
+                <p class="mt-2">{{ photo.description }}</p>
+
+                {# Access the related Task object for the current photo #}
+                <p class="mt-2">Associated Task: {{ photo.task }}</p>
+            </li>
+            {% endfor %}
+        </ul>
+    </div>
+
             {% else %}
             <p>No photos available for this task.</p>
             {% endif %}

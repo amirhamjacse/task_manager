@@ -5,8 +5,6 @@ from task_manager.abstract_model import AbsTimeMixin
 User = get_user_model()
 
 
-
-
 class Task(AbsTimeMixin):
     PRIORITY_CHOICES = [
         ('Low', 'Low'),
@@ -29,15 +27,15 @@ class Task(AbsTimeMixin):
         max_length=10, 
         choices=PRIORITY_CHOICES
     )
-    photos = models.ManyToManyField(
-        'Photos', blank=True,
-        related_name='photo_of_task'
+    is_complete = models.BooleanField(
+        default=False
     )
-    is_complete = models.BooleanField(default=False)
-    owner = models.ForeignKey(User, on_delete=models.CASCADE)
+    owner = models.ForeignKey(
+        User, on_delete=models.CASCADE
+    )
 
     def __str__(self):
-        return self.title
+        return f'{self.title}'
 
 
 class Photos(models.Model):
@@ -46,11 +44,11 @@ class Photos(models.Model):
         related_name='task'
     )
     image = models.ImageField(
-        upload_to='task_photos/'
+        upload_to='media/task_photos/'
     )
     description = models.TextField(
         blank=True, null=True
     )
 
-    def __str__(self):
-        return self.description
+    # def __str__(self):
+    #     return self.description

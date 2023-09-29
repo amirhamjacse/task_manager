@@ -1,6 +1,6 @@
 # forms.py
 from django import forms
-from tasks.models import Task
+from tasks.models import Task, Photos
 from django.utils import timezone
 from django.utils.translation import gettext_lazy as _
 
@@ -12,7 +12,6 @@ class TaskForm(forms.ModelForm):
             'description',
             'due_date',
             'priority', 
-            'photos',
             'is_complete'
         ]
         widgets = {
@@ -21,11 +20,9 @@ class TaskForm(forms.ModelForm):
             'description': forms.Textarea(
                 attrs={'class': 'form-control'}),
             'due_date': forms.DateInput(
-                attrs={'class': 'form-control',
+                attrs={'class': 'form-control', 'type': 'date',
                 'type': 'date'}),
             'priority': forms.Select(
-                attrs={'class': 'form-control'}),
-            'photos': forms.ClearableFileInput(
                 attrs={'class': 'form-control'}),
             'is_complete': forms.CheckboxInput(
                 attrs={'class': 'form-check-input'}),
@@ -41,6 +38,12 @@ class TaskForm(forms.ModelForm):
             )
         return due_date
 
+
+class PhotoForm(forms.ModelForm):
+    
+    class Meta:
+        model = Photos
+        fields = ("image",)
 
 
 class TaskFilterForm(forms.Form):

@@ -1,8 +1,11 @@
 {% extends "base.html" %}
+{% load widget_tweaks %}
+
 {% block content %}
+
 <div class="container">
     <h2>Create a Task</h2>
-    <form method="post" >
+    <form method="POST" enctype="multipart/form-data">
         {% comment %} enctype="multipart/form-data" {% endcomment %}
         {% csrf_token %}
         {% if form.errors %}
@@ -10,7 +13,19 @@
             <strong>Error:</strong> Form is not valid. Please correct the errors below.
         </div>
         {% endif %}
-        {{ form.as_p }}
+        {% comment %} {{ form.as_p }} {% endcomment %}
+
+        {{form.title}}
+        {{form.description}}
+        {{form.due_date}}
+        {{form.priority}}
+
+        
+        {{ photo_form.image|add_class:"form-control" }}
+       
+            {% comment %} <input type="file" name='photo' class="custom-file-input" id="inputGroupFile01"> {% endcomment %}
+          
+        {{form.is_complete}}
         <button type="submit" class="btn btn-primary">Create Task</button>
     </form>
 </div>
