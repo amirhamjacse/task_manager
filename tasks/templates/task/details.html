@@ -23,9 +23,8 @@
             {% for photo in photos %}
             <li class="list-group-item">
                 <img src="{{ photo.image.url }}" alt="{{ photo.description }}" class="img-thumbnail">
-                <p class="mt-2">{{ photo.description }}</p>
+                <p class="mt-2">{{ photo.description|default_if_none:'-' }}</p>
 
-                {# Access the related Task object for the current photo #}
                 <p class="mt-2">Associated Task: {{ photo.task }}</p>
             </li>
             {% endfor %}

@@ -8,10 +8,14 @@ from django.views.generic import (
     CreateView, UpdateView, DeleteView,
     DetailView, View
 )
-from django.shortcuts import get_object_or_404, render, redirect
+from django.shortcuts import (
+    get_object_or_404, render, redirect
+)
 from django.views.generic.list import ListView
 from tasks.models import Task, Photos
-from tasks.forms import TaskForm, TaskFilterForm, PhotoForm
+from tasks.forms import (
+    TaskForm, TaskFilterForm, PhotoForm
+)
 
 
 class TaskCreateView(LoginRequiredMixin, View):
@@ -50,7 +54,6 @@ class TaskCreateView(LoginRequiredMixin, View):
         return render(request, self.template_name, context)
 
 
-
 class TaskUpdateView(LoginRequiredMixin, View):
     template_name = 'task/create.html'
 
@@ -71,7 +74,6 @@ class TaskUpdateView(LoginRequiredMixin, View):
             'task_id': task_id,
         }
         return render(request, self.template_name, context)
-
 
     def post(self, request, task_id, *args, **kwargs):
         task = get_object_or_404(Task, pk=task_id)
@@ -129,20 +131,22 @@ class TaskDetailView(LoginRequiredMixin, DetailView):
         )
         return self.render_to_response(context)
 
-
     def get_object(self, queryset=None):
         queryset = queryset or self.get_queryset()
         pk = self.kwargs.get('pk')
         return get_object_or_404(queryset, pk=pk)
 
 
-class TaskListView(ListView):
+class TaskListView(
+    LoginRequiredMixin, ListView
+):
     model = Task
     template_name = 'home.html'
-    # context_object_name = 'tasks'
 
     def get_queryset(self):
-        queryset = super().get_queryset()
+        queryset = super().get_queryset().filter(
+            owner=self.request.user
+        ).order_by('priority')
         form = TaskFilterForm(self.request.GET)
 
         if form.is_valid():
@@ -167,36 +171,28 @@ class TaskListView(ListView):
             is_complete = form.cleaned_data.get(
                 'is_complete'
             )
-
-            # Create an initial Q object to start the query
-            query = Q()
+            query = Q(owner=self.request.user)
 
             if title:
-                # Perform case-insensitive search on title
                 query &= Q(title__icontains=title)
-
             if created_at_start:
                 query &= Q(created_at__gte=created_at_start)
-
             if created_at_end:
                 query &= Q(created_at__lte=created_at_end)
-
             if due_date_start:
                 query &= Q(due_date__gte=due_date_start)
-
             if due_date_end:
                 query &= Q(due_date__lte=due_date_end)
-
             if priority:
                 query &= Q(priority=priority)
 
             if is_complete is not None:
                 query &= Q(is_complete=is_complete)
-
-            # Apply the final query to the queryset
             queryset = queryset.filter(query)
 
-        order_by = self.request.GET.get('order_by', '-created_at')
+        order_by = self.request.GET.get(
+            'order_by', '-created_at'
+        )
         queryset = queryset.order_by(order_by)
 
         return queryset

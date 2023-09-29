@@ -25,6 +25,15 @@
                 {% endif %}
               </div>
             </div>
+            <div class="form-group">
+              {{ form.username.label_tag }}
+              {{ form.username }}
+              <div class="invalid-feedback">
+                {% if form.username.errors %}
+                  {{ form.username.errors.0 }}
+                {% endif %}
+              </div>
+            </div>
             
             <div class="form-group">
               {{ form.password1.label_tag }}

@@ -38,7 +38,7 @@ INSTALLED_APPS = [
     'multiupload',
     'rest_framework',
     'rest_framework.authtoken',
-    'widget_tweaks',
+    'drf_yasg',
 ]
 
 MIDDLEWARE = [

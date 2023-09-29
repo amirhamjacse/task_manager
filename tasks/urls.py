@@ -10,7 +10,7 @@ urlpatterns = [
          views.LoginView.as_view(),
          name='login'
          ),
-    path('logout/',
+    path('accounts/logout/',
          views.LogoutView.as_view(),
          name='logout'
          ),
@@ -43,6 +43,7 @@ urlpatterns = [
           views.TaskRetrieveUpdateDestroyViewAPI.as_view(),
           name='task-retrieve-update-destroy'
           ),
-     path('api-token-auth/', views.CustomAuthToken.as_view())
-
+     path('api-token-auth/',
+          views.CustomAuthToken.as_view()
+          )
 ]

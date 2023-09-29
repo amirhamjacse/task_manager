@@ -5,6 +5,11 @@ from django.contrib.auth import authenticate
 
 
 class RegistrationForm(UserCreationForm):
+    username = forms.CharField(
+        max_length=100,
+        help_text='Enter your full name.',
+        widget=forms.TextInput(attrs={'class': 'form-control'})
+    )
     email = forms.EmailField(
         max_length=100,
         help_text='Required. Enter a valid email address.',
@@ -22,7 +27,7 @@ class RegistrationForm(UserCreationForm):
 
     class Meta:
         model = get_user_model()
-        fields = ('email', 'password1', 'password2')
+        fields = ('username', 'email', 'password1', 'password2')
 
 
 
