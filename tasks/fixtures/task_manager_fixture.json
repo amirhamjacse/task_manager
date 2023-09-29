@@ -1,0 +1,218 @@
+[
+{
+  "model": "tasks.customuser",
+  "pk": 1,
+  "fields": {
+    "password": "pbkdf2_sha256$600000$rWKozffqTZ0mttjN13F0mI$1xGF0Ey3BhLHPg/j8rBHQKeqgVvx/JcetWON4Bcoles=",
+    "last_login": "2023-09-29T13:51:49.409Z",
+    "is_superuser": false,
+    "email": "johndoe@example.com",
+    "username": "Johndoe",
+    "date_joined": "2023-09-29T13:51:32.208Z",
+    "is_active": true,
+    "is_staff": false,
+    "groups": [],
+    "user_permissions": []
+  }
+},
+{
+  "model": "tasks.customuser",
+  "pk": 2,
+  "fields": {
+    "password": "pbkdf2_sha256$600000$f0KS5XjNZT563HjFjSG5Kp$GeZIRbMG+l7hjiiC0xiue3vZ3cVQFfqylkg4G6xLXZc=",
+    "last_login": "2023-09-29T14:00:59.896Z",
+    "is_superuser": false,
+    "email": "janedoe@example.com",
+    "username": "Janedoe",
+    "date_joined": "2023-09-29T14:00:00.035Z",
+    "is_active": true,
+    "is_staff": false,
+    "groups": [],
+    "user_permissions": []
+  }
+},
+{
+  "model": "tasks.customuser",
+  "pk": 3,
+  "fields": {
+    "password": "pbkdf2_sha256$600000$5yJNAPZSIq5G21bHKHHhWV$ItF/zTzr9UGV1VoihS+Wdi51Lx1Rxme4+bdxn2h+7vc=",
+    "last_login": "2023-09-29T14:04:18.901Z",
+    "is_superuser": false,
+    "email": "alice.smith@example.com",
+    "username": "Alice smith",
+    "date_joined": "2023-09-29T14:04:02.242Z",
+    "is_active": true,
+    "is_staff": false,
+    "groups": [],
+    "user_permissions": []
+  }
+},
+{
+  "model": "tasks.task",
+  "pk": 1,
+  "fields": {
+    "is_active": true,
+    "created_at": "2023-09-29T13:54:48.303Z",
+    "updated_at": "2023-09-29T13:54:48.303Z",
+    "title": "Finish Project Proposal",
+    "description": "Complete the project proposal document by Friday.",
+    "due_date": "2023-10-23",
+    "priority": "High",
+    "is_complete": false,
+    "owner": 1
+  }
+},
+{
+  "model": "tasks.task",
+  "pk": 2,
+  "fields": {
+    "is_active": true,
+    "created_at": "2023-09-29T13:56:09.129Z",
+    "updated_at": "2023-09-29T13:56:09.129Z",
+    "title": "Meeting with Client",
+    "description": "Schedule a meeting with the client to discuss project requirements.",
+    "due_date": "2023-09-30",
+    "priority": "Medium",
+    "is_complete": false,
+    "owner": 1
+  }
+},
+{
+  "model": "tasks.task",
+  "pk": 3,
+  "fields": {
+    "is_active": true,
+    "created_at": "2023-09-29T13:57:50.277Z",
+    "updated_at": "2023-09-29T13:57:50.277Z",
+    "title": "Review Code Changes",
+    "description": "Review the recent code changes and provide feedback.",
+    "due_date": "2023-10-15",
+    "priority": "Low",
+    "is_complete": false,
+    "owner": 1
+  }
+},
+{
+  "model": "tasks.task",
+  "pk": 4,
+  "fields": {
+    "is_active": true,
+    "created_at": "2023-09-29T14:02:00.142Z",
+    "updated_at": "2023-09-29T14:02:00.142Z",
+    "title": "Grocery Shopping",
+    "description": "Buy groceries for the week.",
+    "due_date": "2023-10-07",
+    "priority": "Medium",
+    "is_complete": false,
+    "owner": 2
+  }
+},
+{
+  "model": "tasks.task",
+  "pk": 5,
+  "fields": {
+    "is_active": true,
+    "created_at": "2023-09-29T14:02:50.415Z",
+    "updated_at": "2023-09-29T14:02:50.415Z",
+    "title": "Birthday Party Planning",
+    "description": "Plan a surprise birthday party for John.",
+    "due_date": "2023-10-12",
+    "priority": "High",
+    "is_complete": false,
+    "owner": 2
+  }
+},
+{
+  "model": "tasks.task",
+  "pk": 6,
+  "fields": {
+    "is_active": true,
+    "created_at": "2023-09-29T14:05:47.922Z",
+    "updated_at": "2023-09-29T14:05:47.922Z",
+    "title": "Write Blog Post",
+    "description": "Write a blog post on Django web development.",
+    "due_date": "2023-09-30",
+    "priority": "Low",
+    "is_complete": false,
+    "owner": 3
+  }
+},
+{
+  "model": "tasks.task",
+  "pk": 7,
+  "fields": {
+    "is_active": true,
+    "created_at": "2023-09-29T14:06:37.623Z",
+    "updated_at": "2023-09-29T14:06:37.623Z",
+    "title": "Gym Workout",
+    "description": "Hit the gym for a workout session.",
+    "due_date": "2023-10-23",
+    "priority": "Medium",
+    "is_complete": false,
+    "owner": 3
+  }
+},
+{
+  "model": "tasks.photos",
+  "pk": 1,
+  "fields": {
+    "task": 1,
+    "image": "media/task_photos/R.jpeg",
+    "description": null
+  }
+},
+{
+  "model": "tasks.photos",
+  "pk": 2,
+  "fields": {
+    "task": 2,
+    "image": "media/task_photos/OIP.jpeg",
+    "description": null
+  }
+},
+{
+  "model": "tasks.photos",
+  "pk": 3,
+  "fields": {
+    "task": 3,
+    "image": "media/task_photos/5b6fde348087c8b3a51f9b18458976b46f6f4e66_180.jpg",
+    "description": null
+  }
+},
+{
+  "model": "tasks.photos",
+  "pk": 4,
+  "fields": {
+    "task": 4,
+    "image": "media/task_photos/Screenshot-1_4eeqLdO.png",
+    "description": null
+  }
+},
+{
+  "model": "tasks.photos",
+  "pk": 5,
+  "fields": {
+    "task": 5,
+    "image": "media/task_photos/OIP_WyxLwfM.jpeg",
+    "description": null
+  }
+},
+{
+  "model": "tasks.photos",
+  "pk": 6,
+  "fields": {
+    "task": 6,
+    "image": "media/task_photos/R_1.jpeg",
+    "description": null
+  }
+},
+{
+  "model": "tasks.photos",
+  "pk": 7,
+  "fields": {
+    "task": 7,
+    "image": "media/task_photos/R_1_z86kdbE.jpeg",
+    "description": null
+  }
+}
+]

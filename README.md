@@ -47,6 +47,7 @@ Create a superuser for admin access (optional):
 
 Load the fixture (sample data):
 - Go to this Location tasks/fixtures/task_manager_fixture.json
+- Common password for all user 'Taskm123#'
 - python manage.py loaddata task_manager_fixture
 
 Run the development server:
