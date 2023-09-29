@@ -1,5 +1,6 @@
 from .authintications import *
 from .task import *
+from .api_task import TaskListCreateViewAPI, TaskRetrieveUpdateDestroyViewAPI, CustomAuthToken
 __all__ = [
     HomeView,
     LoginForm,
@@ -9,4 +10,8 @@ __all__ = [
     TaskCreateView,
     TaskDeleteView,
     TaskUpdateView,
+    TaskListCreateViewAPI,
+    TaskRetrieveUpdateDestroyViewAPI,
+    CustomAuthToken
+
 ]

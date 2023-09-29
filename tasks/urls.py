@@ -34,4 +34,15 @@ urlpatterns = [
          views.TaskDeleteView.as_view(),
          name='task_delete'
          ),
+     path('api/tasks/',
+          views.TaskListCreateViewAPI.as_view(),
+          name='task-list-create'
+          ),
+
+     path('api/tasks/<int:pk>/',
+          views.TaskRetrieveUpdateDestroyViewAPI.as_view(),
+          name='task-retrieve-update-destroy'
+          ),
+     path('api-token-auth/', views.CustomAuthToken.as_view())
+
 ]
