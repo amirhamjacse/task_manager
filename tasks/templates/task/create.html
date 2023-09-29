@@ -27,22 +27,11 @@
         <label for="">Photo</label>
         {{ photo_form.image|add_class:"form-control" }}
         <label for="">Complete</label>
+        {{form.is_complete.errors}}
         {{form.is_complete}}
         <br>
         <button type="submit" class="btn btn-primary">Create Task</button>
     </form>
 </div>
 
-{% endblock content %} 
-
-{% comment %}
-
-<div class="container mt-4">
-    <h2>Create Task</h2>
-    <form method="post">
-        {% csrf_token %}
-        {{ form.as_p }}
-        <button type="submit" class="btn btn-primary">Create</button>
-    </form>
-</div>
-{% endcomment %}
+{% endblock content %}

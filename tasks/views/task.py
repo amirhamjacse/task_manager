@@ -185,8 +185,8 @@ class TaskListView(
                 query &= Q(due_date__lte=due_date_end)
             if priority:
                 query &= Q(priority=priority)
-
-            if is_complete is not None:
+            if is_complete:
+                print(f'is_complete filter: {is_complete}')
                 query &= Q(is_complete=is_complete)
             queryset = queryset.filter(query)
 

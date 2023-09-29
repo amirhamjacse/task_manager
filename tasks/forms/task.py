@@ -78,7 +78,7 @@ class TaskFilterForm(forms.Form):
         required=False,
         widget=forms.Select(attrs={'class': 'form-control mr-2'})
     )
-    is_complete = forms.NullBooleanField(
+    is_complete = forms.BooleanField(
         label=_('Is Complete'),
         required=False,
         widget=forms.CheckboxInput(attrs={'class': 'form-check-input mr-2'})
