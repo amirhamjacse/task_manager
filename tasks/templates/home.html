@@ -12,9 +12,41 @@
         <a href="{% url 'task_create' %}" class="btn btn-primary">Create Task</a>
     </div>
     
-    <form method="get" class="form-inline mb-3">
-        {{ filter_form.as_p }}
-        <button type="submit" class="btn btn-primary">Filter</button>
+
+    <form method="get">
+        <div class="row">
+            <div class="col-md-2">
+                <label for="title">Title:</label>
+                {{ filter_form.title }}
+            </div>
+            <div class="col-md-2">
+                <label for="created_at_start">Created At (Start):</label>
+                {{ filter_form.created_at_start }}
+            </div>
+            <div class="col-md-2">
+                <label for="created_at_end">Created At (End):</label>
+                {{ filter_form.created_at_end }}
+            </div>
+            <div class="col-md-2">
+                <label for="due_date_start">Due Date (Start):</label>
+                {{ filter_form.due_date_start }}
+            </div>
+            <div class="col-md-2">
+                <label for="due_date_end">Due Date (End):</label>
+                {{ filter_form.due_date_end }}
+            </div>
+            <div class="col-md-2">
+                <label for="due_date_end">Priority</label>
+                {{ filter_form.priority }}
+            </div>
+            <div class="col-md-2">
+                <label for="due_date_end">Completed</label>
+                {{ filter_form.is_complete }}
+            </div>
+            <div class="col-md-2">
+                <button type="submit" class="btn btn-primary">Apply Filters</button>
+            </div>
+        </div>
     </form>
 
     <table class="table table-striped">

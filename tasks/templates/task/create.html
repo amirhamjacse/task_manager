@@ -6,26 +6,29 @@
 <div class="container">
     <h2>Create a Task</h2>
     <form method="POST" enctype="multipart/form-data">
-        {% comment %} enctype="multipart/form-data" {% endcomment %}
         {% csrf_token %}
         {% if form.errors %}
         <div class="alert alert-danger">
             <strong>Error:</strong> Form is not valid. Please correct the errors below.
         </div>
         {% endif %}
-        {% comment %} {{ form.as_p }} {% endcomment %}
-
+        <label for="">Title</label>
         {{form.title}}
+        {{form.title.errors}}
+        <label for="">Description</label>
         {{form.description}}
+        {{form.description.errors}}
+        <label for="">Due Date</label>
         {{form.due_date}}
+        {{form.due_date.errors}}
+        <label for="">Priority</label>
         {{form.priority}}
-
-        
+        {{form.priority.errors}}
+        <label for="">Photo</label>
         {{ photo_form.image|add_class:"form-control" }}
-       
-            {% comment %} <input type="file" name='photo' class="custom-file-input" id="inputGroupFile01"> {% endcomment %}
-          
+        <label for="">Complete</label>
         {{form.is_complete}}
+        <br>
         <button type="submit" class="btn btn-primary">Create Task</button>
     </form>
 </div>

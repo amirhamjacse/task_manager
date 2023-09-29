@@ -26,7 +26,7 @@ urlpatterns = [
          views.TaskDetailView.as_view(),
          name='task_details'
          ),
-    path('update/<int:pk>/task/',
+    path('update/<int:task_id>/task/',
          views.TaskUpdateView.as_view(),
          name='task_update'
          ),
